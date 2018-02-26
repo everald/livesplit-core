@@ -13,7 +13,7 @@ Additional Bindings are available for the following programming languages:
  - C
  - C++
  - C#
- - Java with Java Native Access or Java Native Interface
+ - Java with Java Native Access, Java Native Interface or as Java Bytecode
  - Kotlin with Java Native Interface
  - Swift
  - Ruby

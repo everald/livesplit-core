@@ -31,6 +31,16 @@ main() {
         wasm32-unknown-unknown)
             cross build -p cdylib --target $TARGET --release
             ;;
+        java)
+            cd capi/java
+            chmod u+x ./make.sh
+            chmod u+x asmble/bin/asmble
+            ./make.sh
+            cp livesplit-core.jar $src/$CRATE_NAME-$TRAVIS_TAG.jar
+            cd $src
+            rm -rf $stage
+            return
+            ;;
         *)
             cross rustc -p staticlib --target $TARGET --release
             if [ -z $NO_DYLIB ]; then
