@@ -5,27 +5,24 @@ set -ex
 main() {
     case $TARGET in
         asmjs-unknown-emscripten)
-            cross build -p livesplit --target $TARGET --release
+            cross build -p capi --target $TARGET --release
             return
             ;;
         wasm32-unknown-emscripten)
             rm target/wasm32-unknown-emscripten/release/deps/*.wasm 2>/dev/null || :
 	        rm target/wasm32-unknown-emscripten/release/deps/*.js 2>/dev/null || :
-            cross build -p livesplit --target $TARGET --release
+            cross build -p capi --target $TARGET --release
             return
             ;;
         wasm32-unknown-unknown)
-            cross build -p cdylib --target $TARGET --release
+            cross build -p capi --target $TARGET
+            cross build -p capi --target $TARGET --release
             return
             ;;
     esac
 
-    cross build -p staticlib --target $TARGET
-    cross build -p staticlib --target $TARGET --release
-    if [ -z $NO_DYLIB ]; then
-        cross build -p cdylib --target $TARGET
-        cross build -p cdylib --target $TARGET --release
-    fi
+    cross build -p capi --target $TARGET
+    cross build -p capi --target $TARGET --release
 
     if [ ! -z $DISABLE_TESTS ]; then
         return

@@ -1,3 +1,4 @@
+#![cfg_attr(target_os = "emscripten", no_main)]
 #![allow(non_snake_case, non_camel_case_types)]
 #![warn(missing_docs)]
 

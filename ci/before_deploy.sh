@@ -19,23 +19,20 @@ main() {
 
     case $TARGET in
         asmjs-unknown-emscripten)
-            cross build -p livesplit --target $TARGET --release
+            cross build -p capi --target $TARGET --release
             cat js/exports.js >> target/$TARGET/release/livesplit*.js*
             ;;
         wasm32-unknown-emscripten)
             rm target/$TARGET/release/deps/*.wasm 2>/dev/null || :
 	        rm target/$TARGET/release/deps/*.js 2>/dev/null || :
-            cross build -p livesplit --target $TARGET --release
+            cross build -p capi --target $TARGET --release
             cat js/exports.js >> target/$TARGET/release/livesplit*.js*
             ;;
         wasm32-unknown-unknown)
-            cross build -p cdylib --target $TARGET --release
+            cross build -p capi --target $TARGET --release
             ;;
         *)
-            cross rustc -p staticlib --target $TARGET --release
-            if [ -z $NO_DYLIB ]; then
-                cross rustc -p cdylib --target $TARGET --release
-            fi
+            cross rustc -p capi --target $TARGET --release
             ;;
     esac
 

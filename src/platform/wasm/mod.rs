@@ -11,6 +11,9 @@ pub extern "C" fn fmod(a: f64, b: f64) -> f64 {
     a - (a / b).floor() * b
 }
 
+#[cfg(debug_assertions)]
+pub mod debug_math;
+
 #[no_mangle]
 pub extern "C" fn alloc(size: usize) -> *mut u8 {
     let mut buf = Vec::with_capacity(size);
