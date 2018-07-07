@@ -2,12 +2,12 @@
 
 use super::super::ComparisonError;
 use chrono::{TimeZone, Utc};
-use std::fs::File;
-use std::io::{self, BufRead, BufReader};
-use std::num::ParseIntError;
-use std::path::PathBuf;
-use std::result::Result as StdResult;
-use {time, AtomicDateTime, Image, RealTime, Run, Segment, Time, TimeSpan};
+use crate::{time, AtomicDateTime, Image, RealTime, Run, Segment, Time, TimeSpan};
+use quick_error::quick_error;
+use std::{
+    fs::File, io::{self, BufRead, BufReader}, num::ParseIntError, path::PathBuf,
+    result::Result as StdResult,
+};
 
 quick_error! {
     /// The Error type for splits files that couldn't be parsed by the Time

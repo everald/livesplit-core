@@ -5,15 +5,17 @@
 //! list provides scrolling functionality, so not every segment needs to be
 //! shown all the time.
 
-use analysis::split_color;
+use crate::{
+    analysis, analysis::split_color,
+    settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value},
+    time::formatter::none_wrapper::{DashWrapper, EmptyWrapper},
+    time::formatter::{Delta, Regular, TimeFormatter}, GeneralLayoutSettings, Timer,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::cmp::{max, min};
-use std::io::Write;
-use time::formatter::none_wrapper::{DashWrapper, EmptyWrapper};
-use time::formatter::{Delta, Regular, TimeFormatter};
-use {analysis, GeneralLayoutSettings, Timer};
+use std::{
+    borrow::Cow, cmp::{max, min}, io::Write,
+};
 
 #[cfg(test)]
 mod tests;
@@ -234,7 +236,7 @@ impl Component {
             run.len() as isize - skip_count - visual_split_count as isize,
         );
         let skip_count = max(0, skip_count + self.scroll_offset) as usize;
-        let take_count = visual_split_count + always_show_last_split as usize - 1;
+        let take_count = visual_split_count + always_show_last_split - 1;
         let always_show_last_split = self.settings.always_show_last_split;
 
         let show_final_separator = self.settings.separator_last_split

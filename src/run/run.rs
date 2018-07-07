@@ -1,11 +1,10 @@
-use comparison::{default_generators, personal_best, ComparisonGenerator};
+use crate::{
+    comparison::{default_generators, personal_best, ComparisonGenerator}, AtomicDateTime, Attempt,
+    Image, RunMetadata, Segment, Time, TimeSpan, TimingMethod,
+};
 use ordered_float::OrderedFloat;
-use std::borrow::Cow;
-use std::cmp::max;
-use std::collections::HashSet;
-use std::path::PathBuf;
-use unicase;
-use {AtomicDateTime, Attempt, Image, RunMetadata, Segment, Time, TimeSpan, TimingMethod};
+use quick_error::quick_error;
+use std::{borrow::Cow, cmp::max, collections::HashSet, path::PathBuf};
 
 /// A Run stores the split times for a specific game and category of a runner.
 ///
@@ -40,7 +39,7 @@ pub struct Run {
 }
 
 #[derive(Clone, Debug)]
-struct ComparisonGenerators(Vec<Box<ComparisonGenerator>>);
+struct ComparisonGenerators(Vec<Box<dyn ComparisonGenerator>>);
 
 impl PartialEq for ComparisonGenerators {
     fn eq(&self, other: &ComparisonGenerators) -> bool {
@@ -62,7 +61,7 @@ quick_error! {
     }
 }
 
-pub type ComparisonResult<T> = Result<T, ComparisonError>;
+crate type ComparisonResult<T> = Result<T, ComparisonError>;
 
 impl Run {
     /// Creates a new Run object with no segments.
@@ -260,13 +259,13 @@ impl Run {
 
     /// Accesses the Comparison Generators in use by this Run.
     #[inline]
-    pub fn comparison_generators(&self) -> &[Box<ComparisonGenerator>] {
+    pub fn comparison_generators(&self) -> &[Box<dyn ComparisonGenerator>] {
         &self.comparison_generators.0
     }
 
     /// Grants mutable access to the Comparison Generators in use by this Run.
     #[inline]
-    pub fn comparison_generators_mut(&mut self) -> &mut Vec<Box<ComparisonGenerator>> {
+    pub fn comparison_generators_mut(&mut self) -> &mut Vec<Box<dyn ComparisonGenerator>> {
         &mut self.comparison_generators.0
     }
 
@@ -813,10 +812,10 @@ fn fix_history_from_best_segment_times(segment: &mut Segment, method: TimingMeth
 /// custom comparisons defined by the user and the Comparison Generators.
 pub struct ComparisonsIter<'a> {
     custom: &'a [String],
-    generators: &'a [Box<ComparisonGenerator>],
+    generators: &'a [Box<dyn ComparisonGenerator>],
 }
 
-impl<'a> Iterator for ComparisonsIter<'a> {
+impl Iterator for ComparisonsIter<'a> {
     type Item = &'a str;
 
     fn next(&mut self) -> Option<&'a str> {
@@ -839,4 +838,4 @@ impl<'a> Iterator for ComparisonsIter<'a> {
     }
 }
 
-impl<'a> ExactSizeIterator for ComparisonsIter<'a> {}
+impl ExactSizeIterator for ComparisonsIter<'_> {}

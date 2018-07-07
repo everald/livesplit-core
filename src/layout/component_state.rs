@@ -1,8 +1,9 @@
-use component::{
+use crate::component::{
     blank_space, current_comparison, current_pace, delta, detailed_timer, graph,
     possible_time_save, previous_segment, separator, splits, sum_of_best, text, timer, title,
     total_playtime,
 };
+use serde_derive::{Deserialize, Serialize};
 
 /// The state object for one of the components available.
 #[derive(Serialize, Deserialize)]

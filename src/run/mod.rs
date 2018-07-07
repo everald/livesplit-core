@@ -27,9 +27,7 @@ mod segment_history;
 #[cfg(test)]
 mod tests;
 
-pub use self::attempt::Attempt;
-pub use self::editor::{Editor, RenameError};
-pub use self::run::{ComparisonError, ComparisonsIter, Run};
-pub use self::run_metadata::RunMetadata;
-pub use self::segment::Segment;
-pub use self::segment_history::SegmentHistory;
+pub use self::{
+    attempt::Attempt, editor::{Editor, RenameError}, run::{ComparisonError, ComparisonsIter, Run},
+    run_metadata::RunMetadata, segment::Segment, segment_history::SegmentHistory,
+};

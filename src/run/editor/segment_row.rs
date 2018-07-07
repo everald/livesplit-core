@@ -1,5 +1,5 @@
 use super::{Editor, ParseError};
-use {Image, TimeSpan};
+use crate::{Image, TimeSpan};
 
 /// A Segment Row describes the segment in the Run Editor actively selected for
 /// editing.
@@ -8,7 +8,7 @@ pub struct SegmentRow<'editor> {
     editor: &'editor mut Editor,
 }
 
-impl<'a> SegmentRow<'a> {
+impl SegmentRow<'a> {
     pub(super) fn new(index: usize, editor: &'a mut Editor) -> Self {
         SegmentRow {
             index: index,

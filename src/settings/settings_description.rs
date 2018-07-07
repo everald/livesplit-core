@@ -1,4 +1,5 @@
 use super::Field;
+use serde_derive::{Deserialize, Serialize};
 
 /// A generic description of the settings available and their current values.
 #[derive(Default, Serialize, Deserialize)]

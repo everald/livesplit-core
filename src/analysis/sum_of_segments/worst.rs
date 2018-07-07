@@ -5,7 +5,7 @@
 //! possible time, but may be useful information regardless.
 
 use super::{track_branch, track_current_run, track_personal_best_run};
-use {Segment, TimeSpan, TimingMethod};
+use crate::{Segment, TimeSpan, TimingMethod};
 
 fn populate_prediction(prediction: &mut Option<TimeSpan>, predicted_time: Option<TimeSpan>) {
     if let Some(predicted_time) = predicted_time {

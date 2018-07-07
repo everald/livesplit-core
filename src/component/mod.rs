@@ -19,9 +19,8 @@ pub mod timer;
 pub mod title;
 pub mod total_playtime;
 
-use palette::rgb::Rgb;
-use palette::Alpha;
-use settings::{Color, Gradient};
+use crate::settings::{Color, Gradient};
+use palette::{rgb::Rgb, Alpha};
 use std::marker::PhantomData;
 
 const DEFAULT_INFO_TEXT_GRADIENT: Gradient = Gradient::Vertical(

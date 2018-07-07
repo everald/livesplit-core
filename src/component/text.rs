@@ -4,11 +4,10 @@
 //! a situation where you have a label and a value.
 
 use super::DEFAULT_INFO_TEXT_GRADIENT;
+use crate::settings::{Field, Gradient, SettingsDescription, Value};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Field, Gradient, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use std::mem::replace;
+use std::{borrow::Cow, io::Write, mem::replace};
 
 /// The Text Component simply visualizes any given text. This can either be a
 /// single centered text, or split up into a left and right text, which is

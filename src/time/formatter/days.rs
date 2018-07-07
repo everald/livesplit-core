@@ -1,6 +1,6 @@
 use super::{TimeFormatter, MINUS};
+use crate::TimeSpan;
 use std::fmt::{Display, Formatter, Result};
-use TimeSpan;
 
 pub struct Inner {
     time: Option<TimeSpan>,
@@ -29,7 +29,7 @@ impl Days {
     }
 }
 
-impl<'a> TimeFormatter<'a> for Days {
+impl TimeFormatter<'_> for Days {
     type Inner = Inner;
 
     fn format<T>(&self, time: T) -> Self::Inner

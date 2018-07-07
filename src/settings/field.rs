@@ -1,4 +1,5 @@
 use super::Value;
+use serde_derive::{Deserialize, Serialize};
 
 /// A Field describes a single setting by its name and its current value.
 #[derive(Serialize, Deserialize)]

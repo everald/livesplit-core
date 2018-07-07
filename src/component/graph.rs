@@ -3,11 +3,13 @@
 //! the chosen comparison throughout the whole attempt. All the individual
 //! deltas are shown as points in a graph.
 
+use crate::{
+    analysis, comparison, settings::{Color, Field, SettingsDescription, Value},
+    GeneralLayoutSettings, TimeSpan, Timer, TimerPhase,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use {analysis, comparison, GeneralLayoutSettings, TimeSpan, Timer, TimerPhase};
+use std::{borrow::Cow, io::Write};
 
 const GRAPH_EDGE_VALUE: f32 = 200.0;
 const GRAPH_EDGE_MIN: f32 = 5.0;

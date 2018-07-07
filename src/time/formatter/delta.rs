@@ -1,6 +1,6 @@
 use super::{Accuracy, TimeFormatter, DASH, MINUS, PLUS};
+use crate::TimeSpan;
 use std::fmt::{Display, Formatter, Result};
-use TimeSpan;
 
 pub struct Inner {
     time: Option<TimeSpan>,
@@ -53,7 +53,7 @@ impl Default for Delta {
     }
 }
 
-impl<'a> TimeFormatter<'a> for Delta {
+impl TimeFormatter<'_> for Delta {
     type Inner = Inner;
 
     fn format<T>(&self, time: T) -> Self::Inner

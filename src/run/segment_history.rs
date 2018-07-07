@@ -1,6 +1,7 @@
-use std::cmp::min;
-use std::slice::{Iter, IterMut};
-use Time;
+use crate::Time;
+use std::{
+    cmp::min, slice::{Iter, IterMut},
+};
 
 /// Stores the segment times achieved for a certain segment. Each segment is
 /// tagged with an index. Only segment times with an index larger than 0 are
@@ -116,7 +117,7 @@ impl SegmentHistory {
     }
 }
 
-impl<'a> IntoIterator for &'a SegmentHistory {
+impl IntoIterator for &'a SegmentHistory {
     type Item = &'a (i32, Time);
     type IntoIter = Iter<'a, (i32, Time)>;
 

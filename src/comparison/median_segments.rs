@@ -4,8 +4,8 @@
 //! suited to represent the current performance of a runner.
 
 use super::ComparisonGenerator;
+use crate::{Attempt, Segment, TimeSpan, TimingMethod};
 use ordered_float::OrderedFloat;
-use {Attempt, Segment, TimeSpan, TimingMethod};
 
 /// The Comparison Generator for calculating the Median Segments of a Run. The
 /// Median Segments are calculated through a weighted median that gives more

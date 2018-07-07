@@ -1,9 +1,11 @@
-use hotkey::{Hook, KeyCode};
-use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::Arc;
-use {HotkeyConfig, SharedTimer};
+use crate::{
+    hotkey::{Hook, KeyCode}, HotkeyConfig, SharedTimer,
+};
+use std::sync::{
+    atomic::{AtomicBool, Ordering}, Arc,
+};
 
-pub use hotkey::{Error, Result};
+use crate::hotkey::Result;
 
 /// With a Hotkey System the runner can use hotkeys on their keyboard to control
 /// the Timer. The hotkeys are global, so the application doesn't need to be in

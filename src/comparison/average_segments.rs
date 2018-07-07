@@ -5,7 +5,7 @@
 //! runner.
 
 use super::ComparisonGenerator;
-use {Attempt, Segment, TimeSpan, TimingMethod};
+use crate::{Attempt, Segment, TimeSpan, TimingMethod};
 
 /// The Comparison Generator for calculating the Average Segments of a Run. The
 /// Average Segments are calculated through a weighted arithmetic mean that

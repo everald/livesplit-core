@@ -1,5 +1,5 @@
 use super::{Component, Settings};
-use {Run, Segment, Timer};
+use crate::{Run, Segment, Timer};
 
 #[test]
 fn zero_visual_split_count_always_shows_all_splits() {

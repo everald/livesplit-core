@@ -1,6 +1,6 @@
 use super::{Accuracy, TimeFormatter, DASH, MINUS};
+use crate::TimeSpan;
 use std::fmt::{Display, Formatter, Result};
-use TimeSpan;
 
 pub struct Inner {
     time: Option<TimeSpan>,
@@ -47,7 +47,7 @@ impl Default for PossibleTimeSave {
     }
 }
 
-impl<'a> TimeFormatter<'a> for PossibleTimeSave {
+impl TimeFormatter<'_> for PossibleTimeSave {
     type Inner = Inner;
 
     fn format<T>(&self, time: T) -> Self::Inner

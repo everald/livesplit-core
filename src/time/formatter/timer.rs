@@ -6,8 +6,8 @@ use super::{
     extract_hundredths, extract_milliseconds, extract_tenths, Accuracy, DigitsFormat,
     TimeFormatter, MINUS,
 };
+use crate::TimeSpan;
 use std::fmt::{Display, Formatter, Result};
-use TimeSpan;
 
 /// A Time Span to be formatted as the main part of the Time Formatter Pair.
 pub struct TimeInner {
@@ -52,7 +52,7 @@ impl Default for Time {
     }
 }
 
-impl<'a> TimeFormatter<'a> for Time {
+impl TimeFormatter<'_> for Time {
     type Inner = TimeInner;
 
     fn format<T>(&self, time: T) -> Self::Inner
@@ -148,7 +148,7 @@ impl Default for Fraction {
     }
 }
 
-impl<'a> TimeFormatter<'a> for Fraction {
+impl TimeFormatter<'_> for Fraction {
     type Inner = FractionInner;
 
     fn format<T>(&self, time: T) -> Self::Inner

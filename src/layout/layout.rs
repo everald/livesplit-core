@@ -1,5 +1,5 @@
 use super::{Component, GeneralSettings, LayoutSettings, LayoutState};
-use {component, Timer};
+use crate::{component, Timer};
 
 /// A Layout allows you to combine multiple components together to visualize a
 /// variety of information the runner is interested in.

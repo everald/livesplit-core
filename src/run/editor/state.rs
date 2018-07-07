@@ -1,10 +1,11 @@
 use super::{Editor, SegmentRow, TimingMethod};
-use comparison::personal_best;
-use run::RunMetadata;
+use crate::{
+    comparison::personal_best, run::RunMetadata, time::formatter::none_wrapper::EmptyWrapper,
+    time::formatter::{Accuracy, Short, TimeFormatter},
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result as JsonResult};
 use std::io::Write;
-use time::formatter::none_wrapper::EmptyWrapper;
-use time::formatter::{Accuracy, Short, TimeFormatter};
 
 /// Represents the current state of the Run Editor in order to visualize it
 /// properly.

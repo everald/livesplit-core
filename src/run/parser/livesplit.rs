@@ -6,11 +6,9 @@ use super::xml_util::{
     parse_children, reencode_children, text, text_as_bytes_err, text_err, text_parsed,
 };
 use chrono::{DateTime, TimeZone, Utc};
+use crate::{AtomicDateTime, Run, RunMetadata, Segment, Time, TimeSpan};
 use quick_xml::Reader;
-use std::io::BufRead;
-use std::path::PathBuf;
-use std::str;
-use {base64, AtomicDateTime, Run, RunMetadata, Segment, Time, TimeSpan};
+use std::{io::BufRead, path::PathBuf, str};
 
 pub use super::xml_util::{Error, Result};
 

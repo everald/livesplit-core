@@ -11,11 +11,8 @@ mod layout;
 mod layout_settings;
 mod layout_state;
 
-pub use self::component::Component;
-pub use self::component_settings::ComponentSettings;
-pub use self::component_state::ComponentState;
-pub use self::editor::Editor;
-pub use self::general_settings::GeneralSettings;
-pub use self::layout::Layout;
-pub use self::layout_settings::LayoutSettings;
-pub use self::layout_state::LayoutState;
+pub use self::{
+    component::Component, component_settings::ComponentSettings, component_state::ComponentState,
+    editor::Editor, general_settings::GeneralSettings, layout::Layout,
+    layout_settings::LayoutSettings, layout_state::LayoutState,
+};

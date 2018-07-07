@@ -1,6 +1,7 @@
-use comparison::average_segments::{AverageSegments, NAME};
-use tests_helper::run_with_splits;
-use {Run, Segment, TimeSpan, Timer};
+use crate::{
+    comparison::average_segments::{AverageSegments, NAME}, tests_helper::run_with_splits, Run,
+    Segment, TimeSpan, Timer,
+};
 
 #[test]
 fn test() {

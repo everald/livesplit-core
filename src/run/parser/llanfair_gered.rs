@@ -6,10 +6,10 @@ use super::xml_util::{
 };
 use base64::{self, STANDARD};
 use byteorder::{ReadBytesExt, BE};
-use imagelib::{png, ColorType, ImageBuffer, Rgba};
+use crate::{RealTime, Run, Segment, Time, TimeSpan};
+use image::{png, ColorType, ImageBuffer, Rgba};
 use quick_xml::Reader;
 use std::io::{BufRead, Cursor, Seek, SeekFrom};
-use {RealTime, Run, Segment, Time, TimeSpan};
 
 pub use super::xml_util::{Error, Result};
 

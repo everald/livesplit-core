@@ -15,17 +15,14 @@ pub mod median_segments;
 pub mod none;
 pub mod worst_segments;
 
-pub use self::average_segments::AverageSegments;
-pub use self::balanced_pb::BalancedPB;
-pub use self::best_segments::BestSegments;
-pub use self::best_split_times::BestSplitTimes;
-pub use self::latest_run::LatestRun;
-pub use self::median_segments::MedianSegments;
-pub use self::none::None;
-pub use self::worst_segments::WorstSegments;
+pub use self::{
+    average_segments::AverageSegments, balanced_pb::BalancedPB, best_segments::BestSegments,
+    best_split_times::BestSplitTimes, latest_run::LatestRun, median_segments::MedianSegments,
+    none::None, worst_segments::WorstSegments,
+};
 
+use crate::{Attempt, Segment, Timer};
 use std::fmt::Debug;
-use {Attempt, Segment, Timer};
 
 /// Defines the Personal Best comparison. This module mostly just serves for
 /// providing the names of the comparison, as the Personal Best is not a
@@ -55,19 +52,19 @@ pub trait ComparisonGenerator: Debug + Sync + Send + ComparisonGeneratorClone {
 /// as a Trait Object.
 pub trait ComparisonGeneratorClone {
     /// Clones the Comparison Generator as a Trait Object.
-    fn clone_box(&self) -> Box<ComparisonGenerator>;
+    fn clone_box(&self) -> Box<dyn ComparisonGenerator>;
 }
 
 impl<T> ComparisonGeneratorClone for T
 where
     T: 'static + ComparisonGenerator + Clone,
 {
-    fn clone_box(&self) -> Box<ComparisonGenerator> {
+    fn clone_box(&self) -> Box<dyn ComparisonGenerator> {
         Box::new(self.clone())
     }
 }
 
-impl Clone for Box<ComparisonGenerator> {
+impl Clone for Box<dyn ComparisonGenerator> {
     fn clone(&self) -> Self {
         self.clone_box()
     }
@@ -75,7 +72,7 @@ impl Clone for Box<ComparisonGenerator> {
 
 /// Creates a list of all the Comparison Generators that are active by default.
 /// Which comparison generators are in this list may change in future versions.
-pub fn default_generators() -> Vec<Box<ComparisonGenerator>> {
+pub fn default_generators() -> Vec<Box<dyn ComparisonGenerator>> {
     vec![
         Box::new(BestSegments),
         Box::new(BestSplitTimes),
@@ -110,14 +107,14 @@ pub fn shorten(comparison: &str) -> &str {
 
 /// Helper function for accessing either the given comparison or a Timer's
 /// current comparison if the given comparison is `None`.
-pub fn or_current<'a>(comparison: Option<&'a str>, timer: &'a Timer) -> &'a str {
+pub fn or_current(comparison: Option<&'a str>, timer: &'a Timer) -> &'a str {
     comparison.unwrap_or_else(|| timer.current_comparison())
 }
 
 /// Tries to resolve the given comparison based on a Timer object. If either
 /// `None` is given or the comparison doesn't exist, `None` is returned.
 /// Otherwise the comparison name stored in the Timer is returned by reference.
-pub fn resolve<'a>(comparison: &Option<String>, timer: &'a Timer) -> Option<&'a str> {
+pub fn resolve(comparison: &Option<String>, timer: &'a Timer) -> Option<&'a str> {
     let comparison = comparison.as_ref()?;
     timer.run().comparisons().find(|&rc| comparison == rc)
 }

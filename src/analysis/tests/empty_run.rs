@@ -1,6 +1,9 @@
-use super::super::sum_of_segments::{calculate_best, calculate_worst};
-use super::super::total_playtime;
-use {Run, TimeSpan, TimingMethod};
+use crate::{
+    analysis::{
+        sum_of_segments::{calculate_best, calculate_worst}, total_playtime,
+    },
+    Run, TimeSpan, TimingMethod,
+};
 
 #[test]
 fn sum_of_best() {

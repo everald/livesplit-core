@@ -1,10 +1,10 @@
 //! Provides the parser for SplitterZ splits files.
 
-use std::borrow::Cow;
-use std::io::{self, BufRead};
-use std::num::ParseIntError;
-use std::result::Result as StdResult;
-use {time, Image, RealTime, Run, Segment, TimeSpan};
+use crate::{time, Image, RealTime, Run, Segment, TimeSpan};
+use quick_error::quick_error;
+use std::{
+    borrow::Cow, io::{self, BufRead}, num::ParseIntError, result::Result as StdResult,
+};
 
 quick_error! {
     /// The Error type for splits files that couldn't be parsed by the SplitterZ

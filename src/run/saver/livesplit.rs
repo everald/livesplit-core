@@ -26,15 +26,14 @@
 
 use byteorder::{WriteBytesExt, LE};
 use chrono::{DateTime, Utc};
-use quick_xml::events::{BytesDecl, BytesEnd, BytesStart, BytesText, Event};
-use quick_xml::{Error as XmlError, Writer};
-use std::borrow::Cow;
-use std::fmt::Display;
-use std::io::Write;
-use std::mem::replace;
-use std::result::Result as StdResult;
-use time::formatter::{Complete, TimeFormatter};
-use {base64, Image, Run, Time, TimeSpan, Timer, TimerPhase};
+use crate::{
+    time::formatter::{Complete, TimeFormatter}, Image, Run, Time, TimeSpan, Timer, TimerPhase,
+};
+use quick_error::quick_error;
+use quick_xml::{
+    events::{BytesDecl, BytesEnd, BytesStart, BytesText, Event}, Error as XmlError, Writer,
+};
+use std::{borrow::Cow, fmt::Display, io::Write, mem::replace, result::Result as StdResult};
 
 static LSS_IMAGE_HEADER: &[u8; 156] = include_bytes!("lss_image_header.bin");
 
@@ -67,7 +66,7 @@ fn write_end<W: Write>(writer: &mut Writer<W>, tag: &[u8]) -> Result<()> {
     Ok(())
 }
 
-fn split_tag<'a>(tag: &'a BytesStart<'a>) -> (BytesStart<'a>, BytesEnd<'a>) {
+fn split_tag(tag: &'a BytesStart<'a>) -> (BytesStart<'a>, BytesEnd<'a>) {
     (
         BytesStart::borrowed(&tag, tag.name().len()),
         BytesEnd::borrowed(tag.name()),

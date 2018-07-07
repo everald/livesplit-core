@@ -5,14 +5,14 @@
 //! for the remainder of the current attempt.
 
 use super::DEFAULT_INFO_TEXT_GRADIENT;
-use analysis::possible_time_save;
+use crate::{
+    analysis::possible_time_save, comparison,
+    settings::{Color, Field, Gradient, SettingsDescription, Value},
+    time::formatter::{Accuracy, PossibleTimeSave, TimeFormatter}, Timer, TimerPhase,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, Gradient, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::fmt::Write as FmtWrite;
-use std::io::Write;
-use time::formatter::{Accuracy, PossibleTimeSave, TimeFormatter};
-use {comparison, Timer, TimerPhase};
+use std::{borrow::Cow, fmt::Write as FmtWrite, io::Write};
 
 /// The Possible Time Save Component is a component that shows how much time the
 /// chosen comparison could've saved for the current segment, based on the Best

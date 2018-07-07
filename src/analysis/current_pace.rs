@@ -2,7 +2,7 @@
 //! provided. If there's no active attempt, the final time of the comparison is
 //! returned instead.
 
-use {analysis, TimeSpan, Timer, TimerPhase};
+use crate::{analysis, TimeSpan, Timer, TimerPhase};
 
 /// Calculates the current pace of the active attempt based on the comparison
 /// provided. If there's no active attempt, the final time of the comparison is

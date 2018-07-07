@@ -1,8 +1,10 @@
 use chrono::Duration;
-use platform::Duration as StdDuration;
-use std::num::ParseFloatError;
-use std::ops::{AddAssign, SubAssign};
-use std::str::FromStr;
+use crate::platform::Duration as StdDuration;
+use derive_more::{Add, From, Neg, Sub};
+use quick_error::quick_error;
+use std::{
+    num::ParseFloatError, ops::{AddAssign, SubAssign}, str::FromStr,
+};
 
 /// A Time Span represents a certain span of time.
 #[derive(From, Add, Sub, Neg, Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]

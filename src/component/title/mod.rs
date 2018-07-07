@@ -3,11 +3,12 @@
 //! that is being run. Additionally, the game icon, the attempt count, and the
 //! total number of finished runs can be shown.
 
+use crate::{
+    settings::{Alignment, Color, Field, Gradient, SettingsDescription, Value}, Timer, TimerPhase,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Alignment, Color, Field, Gradient, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use {Timer, TimerPhase};
+use std::{borrow::Cow, io::Write};
 
 #[cfg(test)]
 mod tests;

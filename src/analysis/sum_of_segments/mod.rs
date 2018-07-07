@@ -10,7 +10,7 @@
 pub mod best;
 pub mod worst;
 
-use {Segment, Time, TimeSpan, TimingMethod};
+use crate::{Segment, Time, TimeSpan, TimingMethod};
 
 /// Calculates the Sum of Best Segments for the timing method provided. This is
 /// the fastest time possible to complete a run of a category, based on

@@ -5,14 +5,16 @@
 //! comparisons, the segment icon, and the segment's name, can also be shown.
 
 use super::timer;
-use comparison::{self, best_segments, none};
+use crate::{
+    comparison::{self, best_segments, none},
+    settings::{Field, Gradient, SemanticColor, SettingsDescription, Value},
+    time::formatter::none_wrapper::DashWrapper,
+    time::formatter::{timer as formatter, Accuracy, DigitsFormat, Short, TimeFormatter, DASH},
+    GeneralLayoutSettings, TimeSpan, Timer, TimerPhase, TimingMethod,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Field, Gradient, SemanticColor, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use time::formatter::none_wrapper::DashWrapper;
-use time::formatter::{timer as formatter, Accuracy, DigitsFormat, Short, TimeFormatter, DASH};
-use {GeneralLayoutSettings, TimeSpan, Timer, TimerPhase, TimingMethod};
+use std::{borrow::Cow, io::Write};
 
 /// The Detailed Timer Component is a component that shows two timers, one for
 /// the total time of the current attempt and one showing the time of just the

@@ -1,5 +1,4 @@
-use std::collections::BinaryHeap;
-use std::usize;
+use std::{collections::BinaryHeap, usize};
 
 /// With a Fuzzy List, you can implement a fuzzy searching algorithm. The list
 /// stores all the items that can be searched for. With the `search` method you
@@ -34,7 +33,7 @@ impl FuzzyList {
     /// Searches for the pattern provided in the list. A list of all the
     /// matching elements is returned. The returned list has a maximum amount of
     /// elements provided to this method.
-    pub fn search<'a>(&'a self, pattern: &str, max: usize) -> Vec<&'a str> {
+    pub fn search(&self, pattern: &str, max: usize) -> Vec<&str> {
         let pattern = pattern.to_lowercase();
         let mut heap = BinaryHeap::new();
         for (element, element_lower) in &self.list {

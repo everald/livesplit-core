@@ -1,3 +1,4 @@
+use derive_more::From;
 use palette::{Hsla, LinSrgba};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
@@ -53,7 +54,7 @@ impl Serialize for Color {
     }
 }
 
-impl<'de> Deserialize<'de> for Color {
+impl Deserialize<'de> for Color {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,

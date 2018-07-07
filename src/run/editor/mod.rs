@@ -5,11 +5,13 @@
 //! kind of User Interface.
 
 use super::run::{ComparisonError, ComparisonResult};
+use crate::{
+    comparison, time::ParseError as ParseTimeSpanError, Image, Run, Segment, Time, TimeSpan,
+    TimingMethod,
+};
 use odds::slice::rotate_left;
-use std::mem::swap;
-use std::num::ParseIntError;
-use time::ParseError as ParseTimeSpanError;
-use {comparison, unicase, Image, Run, Segment, Time, TimeSpan, TimingMethod};
+use quick_error::quick_error;
+use std::{mem::swap, num::ParseIntError};
 
 pub mod cleaning;
 mod fuzzy_list;
@@ -18,10 +20,10 @@ mod state;
 #[cfg(test)]
 mod tests;
 
-pub use self::cleaning::SumOfBestCleaner;
-pub use self::fuzzy_list::FuzzyList;
-pub use self::segment_row::SegmentRow;
-pub use self::state::{Buttons as ButtonsState, Segment as SegmentState, State};
+pub use self::{
+    cleaning::SumOfBestCleaner, fuzzy_list::FuzzyList, segment_row::SegmentRow,
+    state::{Buttons as ButtonsState, Segment as SegmentState, State},
+};
 
 quick_error! {
     /// Describes an Error that occurred while parsing a time.
@@ -50,7 +52,7 @@ quick_error! {
     /// Error type for a failed Rename
     #[derive(PartialEq, Debug)]
     pub enum RenameError {
-        /// Old Comparison was not found durring rename.
+        /// Old Comparison was not found  rename.
         OldNameNotFound {}
         /// Name was invalid
         InvalidName(err: ComparisonError) {

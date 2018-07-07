@@ -1,7 +1,11 @@
 use super::{Alignment, Color, Gradient};
+use crate::{
+    time::formatter::{Accuracy, DigitsFormat}, TimingMethod,
+};
+use derive_more::From;
+use quick_error::quick_error;
+use serde_derive::{Deserialize, Serialize};
 use std::result::Result as StdResult;
-use time::formatter::{Accuracy, DigitsFormat};
-use TimingMethod;
 
 /// Describes a setting's value. Such a value can be of a variety of different
 /// types.

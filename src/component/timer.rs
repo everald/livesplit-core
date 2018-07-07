@@ -3,15 +3,16 @@
 //! a digital clock. The color of the time shown is based on a how well the
 //! current attempt is doing compared to the chosen comparison.
 
-use analysis::split_color;
-use palette::rgb::LinSrgb;
-use palette::Hsv;
+use crate::{
+    analysis::split_color,
+    settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value},
+    time::formatter::{timer as formatter, Accuracy, DigitsFormat, TimeFormatter},
+    GeneralLayoutSettings, TimeSpan, Timer, TimerPhase, TimingMethod,
+};
+use palette::{rgb::LinSrgb, Hsv};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use time::formatter::{timer as formatter, Accuracy, DigitsFormat, TimeFormatter};
-use {GeneralLayoutSettings, TimeSpan, Timer, TimerPhase, TimingMethod};
+use std::{borrow::Cow, io::Write};
 
 /// The Timer Component is a component that shows the total time of the current
 /// attempt as a digital clock. The color of the time shown is based on a how

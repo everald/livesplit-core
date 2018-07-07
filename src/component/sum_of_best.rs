@@ -8,13 +8,14 @@
 //! around for historical reasons.
 
 use super::DEFAULT_INFO_TEXT_GRADIENT;
-use analysis::sum_of_segments::calculate_best;
+use crate::{
+    analysis::sum_of_segments::calculate_best,
+    settings::{Color, Field, Gradient, SettingsDescription, Value},
+    time::formatter::{Accuracy, Regular, TimeFormatter}, Timer,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, Gradient, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use time::formatter::{Accuracy, Regular, TimeFormatter};
-use Timer;
+use std::{borrow::Cow, io::Write};
 
 /// The Sum of Best Segments Component shows the fastest possible time to
 /// complete a run of this category, based on information collected from all the

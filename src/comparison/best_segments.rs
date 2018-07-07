@@ -1,8 +1,7 @@
 //! Defines the Comparison Generator for calculating the Best Segments of a Run.
 
 use super::ComparisonGenerator;
-use analysis::sum_of_segments::best::calculate;
-use {Attempt, Segment, Time, TimingMethod};
+use crate::{analysis::sum_of_segments::best::calculate, Attempt, Segment, Time, TimingMethod};
 
 /// The Comparison Generator for calculating the Best Segments of a Run.
 #[derive(Copy, Clone, Debug)]

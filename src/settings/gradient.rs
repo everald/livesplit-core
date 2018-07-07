@@ -1,4 +1,5 @@
 use super::Color;
+use serde_derive::{Deserialize, Serialize};
 
 /// Describes a Gradient for coloring a region with more than just a single
 /// color.

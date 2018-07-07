@@ -1,8 +1,9 @@
 //! Provides different helper functions.
 
-use comparison::{best_segments, personal_best};
-use settings::SemanticColor;
-use {Run, TimeSpan, Timer, TimerPhase, TimingMethod};
+use crate::{
+    comparison::{best_segments, personal_best}, settings::SemanticColor, Run, TimeSpan, Timer,
+    TimerPhase, TimingMethod,
+};
 
 /// Gets the last non-live delta in the run starting from `split_number`.
 ///

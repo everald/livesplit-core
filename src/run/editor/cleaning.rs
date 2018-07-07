@@ -6,12 +6,12 @@
 //! occurrences of this and allows you to delete them individually if any of
 //! them seem wrong.
 
-use analysis::sum_of_segments::{best, track_branch};
 use chrono::Local;
-use std::fmt;
-use std::mem::replace;
-use time::formatter::{Short, TimeFormatter};
-use {Attempt, Run, Segment, TimeSpan, TimingMethod};
+use crate::{
+    analysis::sum_of_segments::{best, track_branch}, time::formatter::{Short, TimeFormatter},
+    Attempt, Run, Segment, TimeSpan, TimingMethod,
+};
+use std::{fmt, mem::replace};
 
 /// A Sum of Best Cleaner allows you to interactively remove potential issues in
 /// the Segment History that lead to an inaccurate Sum of Best. If you skip a
@@ -64,7 +64,7 @@ pub struct CleanUp {
     run_index: i32,
 }
 
-impl<'r> fmt::Display for PotentialCleanUp<'r> {
+impl fmt::Display for PotentialCleanUp<'_> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let short = Short::new();
 
@@ -111,13 +111,13 @@ impl<'r> fmt::Display for PotentialCleanUp<'r> {
     }
 }
 
-impl<'a> From<PotentialCleanUp<'a>> for CleanUp {
+impl From<PotentialCleanUp<'_>> for CleanUp {
     fn from(potential: PotentialCleanUp) -> Self {
         potential.clean_up
     }
 }
 
-impl<'r> SumOfBestCleaner<'r> {
+impl SumOfBestCleaner<'r> {
     /// Creates a new Sum of Best Cleaner for the provided Run object.
     pub fn new(run: &'r mut Run) -> Self {
         let predictions = Vec::with_capacity(run.len() + 1);
@@ -213,15 +213,15 @@ impl<'r> SumOfBestCleaner<'r> {
     }
 }
 
-fn check_prediction<'a>(
-    run: &'a Run,
+fn check_prediction(
+    run: &'run Run,
     predictions: &[Option<TimeSpan>],
     predicted_time: Option<TimeSpan>,
     starting_index: isize,
     ending_index: usize,
     run_index: i32,
     method: TimingMethod,
-) -> Option<PotentialCleanUp<'a>> {
+) -> Option<PotentialCleanUp<'run>> {
     if let Some(predicted_time) = predicted_time {
         if predictions[ending_index + 1].map_or(true, |t| predicted_time < t) {
             if let Some(segment_history_element) =

@@ -6,13 +6,15 @@
 //! active time loss whenever the runner is losing time on the current segment.
 
 use super::DEFAULT_INFO_TEXT_GRADIENT;
+use crate::{
+    analysis, comparison,
+    settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value},
+    time::formatter::{Accuracy, Delta, PossibleTimeSave, TimeFormatter}, GeneralLayoutSettings,
+    Timer, TimerPhase,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::fmt::Write as FmtWrite;
-use std::io::Write;
-use time::formatter::{Accuracy, Delta, PossibleTimeSave, TimeFormatter};
-use {analysis, comparison, GeneralLayoutSettings, Timer, TimerPhase};
+use std::{borrow::Cow, fmt::Write as FmtWrite, io::Write};
 
 /// The Previous Segment Component is a component that shows how much time was
 /// saved or lost during the previous segment based on the chosen comparison.

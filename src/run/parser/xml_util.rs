@@ -1,14 +1,14 @@
 use super::super::ComparisonError;
 use chrono::ParseError as ChronoError;
-use quick_xml::events::{attributes, BytesStart, Event};
-use quick_xml::{Error as XmlError, Reader, Writer};
-use std::borrow::Cow;
-use std::io::{self, BufRead};
-use std::num::{ParseFloatError, ParseIntError};
-use std::ops::Deref;
-use std::result::Result as StdResult;
-use std::{str, string};
-use time;
+use crate::time;
+use quick_error::quick_error;
+use quick_xml::{
+    events::{attributes, BytesStart, Event}, Error as XmlError, Reader, Writer,
+};
+use std::{
+    borrow::Cow, io::{self, BufRead}, num::{ParseFloatError, ParseIntError}, ops::Deref,
+    result::Result as StdResult, str, string,
+};
 
 quick_error! {
     /// The Error type for XML-based splits files that couldn't be parsed.
@@ -68,9 +68,9 @@ quick_error! {
 /// The Result type for Parsers that parse XML-based splits files.
 pub type Result<T> = StdResult<T, Error>;
 
-pub struct Tag<'a>(BytesStart<'a>, *mut Vec<u8>);
+crate struct Tag<'a>(BytesStart<'a>, *mut Vec<u8>);
 
-impl<'a> Deref for Tag<'a> {
+impl Deref for Tag<'a> {
     type Target = BytesStart<'a>;
 
     fn deref(&self) -> &Self::Target {
@@ -78,20 +78,20 @@ impl<'a> Deref for Tag<'a> {
     }
 }
 
-impl<'a> Tag<'a> {
-    pub unsafe fn new(tag: BytesStart<'a>, buf: *mut Vec<u8>) -> Self {
+impl Tag<'a> {
+    crate unsafe fn new(tag: BytesStart<'a>, buf: *mut Vec<u8>) -> Self {
         Tag(tag, buf)
     }
 
-    pub fn into_buf(self) -> &'a mut Vec<u8> {
+    crate fn into_buf(self) -> &'a mut Vec<u8> {
         unsafe { &mut *self.1 }
     }
 }
 
-pub struct AttributeValue<'a>(&'a attributes::Attribute<'a>);
+crate struct AttributeValue<'a>(&'a attributes::Attribute<'a>);
 
-impl<'a> AttributeValue<'a> {
-    pub fn get(self) -> Result<Cow<'a, str>> {
+impl AttributeValue<'a> {
+    crate fn get(self) -> Result<Cow<'a, str>> {
         decode_cow_text(self.0.unescaped_value()?)
     }
 }
@@ -103,7 +103,7 @@ fn decode_cow_text(cow: Cow<[u8]>) -> Result<Cow<str>> {
     })
 }
 
-pub fn text_parsed<R, F, T>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<()>
+crate fn text_parsed<R, F, T>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<()>
 where
     R: BufRead,
     F: FnOnce(T),
@@ -116,7 +116,7 @@ where
     })
 }
 
-pub fn text<R, F>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<()>
+crate fn text<R, F>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<()>
 where
     R: BufRead,
     F: FnOnce(Cow<str>),
@@ -127,7 +127,7 @@ where
     })
 }
 
-pub fn text_err<R, F>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<()>
+crate fn text_err<R, F>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<()>
 where
     R: BufRead,
     F: FnOnce(Cow<str>) -> Result<()>,
@@ -135,7 +135,7 @@ where
     text_as_bytes_err(reader, buf, |b| f(decode_cow_text(b)?))
 }
 
-pub fn text_as_bytes_err<R, F, T>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<T>
+crate fn text_as_bytes_err<R, F, T>(reader: &mut Reader<R>, buf: &mut Vec<u8>, f: F) -> Result<T>
 where
     R: BufRead,
     F: FnOnce(Cow<[u8]>) -> Result<T>,
@@ -173,7 +173,7 @@ fn end_tag_immediately<R: BufRead>(reader: &mut Reader<R>, buf: &mut Vec<u8>) ->
     }
 }
 
-pub fn reencode_children<R>(
+crate fn reencode_children<R>(
     reader: &mut Reader<R>,
     buf: &mut Vec<u8>,
     target_buf: &mut Vec<u8>,
@@ -217,7 +217,7 @@ where
     }
 }
 
-pub fn end_tag<R: BufRead>(reader: &mut Reader<R>, buf: &mut Vec<u8>) -> Result<()> {
+crate fn end_tag<R: BufRead>(reader: &mut Reader<R>, buf: &mut Vec<u8>) -> Result<()> {
     let mut depth = 0;
     loop {
         buf.clear();
@@ -237,7 +237,7 @@ pub fn end_tag<R: BufRead>(reader: &mut Reader<R>, buf: &mut Vec<u8>) -> Result<
     }
 }
 
-pub fn single_child<R, F, T>(
+crate fn single_child<R, F, T>(
     reader: &mut Reader<R>,
     buf: &mut Vec<u8>,
     tag: &[u8],
@@ -259,7 +259,7 @@ where
     val.ok_or(Error::ElementNotFound)
 }
 
-pub fn parse_children<R, F>(reader: &mut Reader<R>, buf: &mut Vec<u8>, mut f: F) -> Result<()>
+crate fn parse_children<R, F>(reader: &mut Reader<R>, buf: &mut Vec<u8>, mut f: F) -> Result<()>
 where
     R: BufRead,
     F: FnMut(&mut Reader<R>, Tag) -> Result<()>,
@@ -281,7 +281,7 @@ where
     }
 }
 
-pub fn parse_base<R, F>(
+crate fn parse_base<R, F>(
     reader: &mut Reader<R>,
     buf: &mut Vec<u8>,
     tag: &[u8],
@@ -309,7 +309,7 @@ where
     }
 }
 
-pub fn parse_attributes<'a, F>(tag: &BytesStart<'a>, mut f: F) -> Result<()>
+crate fn parse_attributes<F>(tag: &BytesStart, mut f: F) -> Result<()>
 where
     F: FnMut(&[u8], AttributeValue) -> Result<bool>,
 {
@@ -323,7 +323,7 @@ where
     Ok(())
 }
 
-pub fn optional_attribute_err<'a, F>(tag: &BytesStart<'a>, key: &[u8], mut f: F) -> Result<()>
+crate fn optional_attribute_err<F>(tag: &BytesStart, key: &[u8], mut f: F) -> Result<()>
 where
     F: FnMut(Cow<str>) -> Result<()>,
 {
@@ -337,7 +337,7 @@ where
     })
 }
 
-pub fn attribute_err<'a, F>(tag: &BytesStart<'a>, key: &[u8], mut f: F) -> Result<()>
+crate fn attribute_err<F>(tag: &BytesStart, key: &[u8], mut f: F) -> Result<()>
 where
     F: FnMut(Cow<str>) -> Result<()>,
 {
@@ -358,7 +358,7 @@ where
     }
 }
 
-pub fn attribute<'a, F>(tag: &BytesStart<'a>, key: &[u8], mut f: F) -> Result<()>
+crate fn attribute<F>(tag: &BytesStart, key: &[u8], mut f: F) -> Result<()>
 where
     F: FnMut(Cow<str>),
 {

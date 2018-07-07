@@ -31,18 +31,13 @@ mod regular;
 mod short;
 pub mod timer;
 
-pub use self::accuracy::Accuracy;
-pub use self::complete::Complete;
-pub use self::days::Days;
-pub use self::delta::Delta;
-pub use self::digits_format::DigitsFormat;
-pub use self::possible_time_save::PossibleTimeSave;
-pub use self::regular::Regular;
-pub use self::short::Short;
+pub use self::{
+    accuracy::Accuracy, complete::Complete, days::Days, delta::Delta, digits_format::DigitsFormat,
+    possible_time_save::PossibleTimeSave, regular::Regular, short::Short,
+};
 
-use std::cmp::min;
-use std::fmt::Display;
-use TimeSpan;
+use crate::TimeSpan;
+use std::{cmp::min, fmt::Display};
 
 /// Time Formatters can be used to format optional Time Spans in various ways.
 pub trait TimeFormatter<'a> {

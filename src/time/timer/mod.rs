@@ -1,9 +1,10 @@
-use comparison::personal_best;
+use crate::{
+    comparison::personal_best, AtomicDateTime, Run, Segment, Time, TimeSpan, TimeStamp, TimerPhase,
+    TimerPhase::{Ended, NotRunning, Paused, Running}, TimingMethod,
+};
 use parking_lot::RwLock;
-use std::mem;
-use std::sync::Arc;
-use TimerPhase::*;
-use {AtomicDateTime, Run, Segment, Time, TimeSpan, TimeStamp, TimerPhase, TimingMethod};
+use quick_error::quick_error;
+use std::{mem, sync::Arc};
 
 #[cfg(test)]
 mod tests;

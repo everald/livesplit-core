@@ -3,13 +3,14 @@
 //! attempt is compared to the chosen comparison.
 
 use super::DEFAULT_INFO_TEXT_GRADIENT;
-use analysis::{delta, state_helper};
+use crate::{
+    analysis::{delta, state_helper}, comparison,
+    settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value},
+    time::formatter::{Accuracy, Delta, TimeFormatter}, GeneralLayoutSettings, Timer,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, Gradient, SemanticColor, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use time::formatter::{Accuracy, Delta, TimeFormatter};
-use {comparison, GeneralLayoutSettings, Timer};
+use std::{borrow::Cow, io::Write};
 
 #[cfg(test)]
 mod tests;

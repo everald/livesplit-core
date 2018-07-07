@@ -1,10 +1,10 @@
 //! Provides the parser for FaceSplit splits files.
 
-use std::borrow::Cow;
-use std::io::{self, BufRead};
-use std::num::ParseIntError;
-use std::result::Result as StdResult;
-use {time, Image, RealTime, Run, Segment, Time, TimeSpan};
+use crate::{time, Image, RealTime, Run, Segment, Time, TimeSpan};
+use quick_error::quick_error;
+use std::{
+    borrow::Cow, io::{self, BufRead}, num::ParseIntError, result::Result as StdResult,
+};
 
 quick_error! {
     /// The Error type for splits files that couldn't be parsed by the FaceSplit
@@ -50,7 +50,7 @@ fn parse_time(time: &str) -> Result<Time> {
     }
 }
 
-fn replace<'a>(text: &'a str, a: &'a str, b: &str) -> Cow<'a, str> {
+fn replace(text: &'a str, a: &'a str, b: &str) -> Cow<'a, str> {
     if text.contains(a) {
         text.replace(a, b).into()
     } else {

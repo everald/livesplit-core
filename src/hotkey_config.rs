@@ -1,4 +1,4 @@
-use hotkey::KeyCode;
+use crate::hotkey::KeyCode;
 
 /// The configuration to use for a Hotkey System. It describes with keys to use
 /// as hotkeys for the different actions.
@@ -24,7 +24,7 @@ pub struct HotkeyConfig {
 #[cfg(any(windows, target_os = "linux"))]
 impl Default for HotkeyConfig {
     fn default() -> Self {
-        use hotkey::KeyCode::*;
+        use crate::hotkey::KeyCode::*;
         Self {
             split: NumPad1,
             reset: NumPad3,
@@ -40,7 +40,7 @@ impl Default for HotkeyConfig {
 #[cfg(any(target_os = "emscripten", all(target_arch = "wasm32", target_os = "unknown")))]
 impl Default for HotkeyConfig {
     fn default() -> Self {
-        use hotkey::KeyCode::*;
+        use crate::hotkey::KeyCode::*;
         Self {
             split: Numpad1,
             reset: Numpad3,

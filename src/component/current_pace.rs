@@ -4,13 +4,14 @@
 //! comparison for the remainder of the run.
 
 use super::DEFAULT_INFO_TEXT_GRADIENT;
-use analysis::current_pace;
+use crate::{
+    analysis::current_pace, comparison,
+    settings::{Color, Field, Gradient, SettingsDescription, Value},
+    time::formatter::{Accuracy, Regular, TimeFormatter}, Timer, TimerPhase,
+};
+use serde_derive::{Deserialize, Serialize};
 use serde_json::{to_writer, Result};
-use settings::{Color, Field, Gradient, SettingsDescription, Value};
-use std::borrow::Cow;
-use std::io::Write;
-use time::formatter::{Accuracy, Regular, TimeFormatter};
-use {comparison, Timer, TimerPhase};
+use std::{borrow::Cow, io::Write};
 
 /// The Current Pace Component is a component that shows a prediction of the
 /// current attempt's final time, if the current attempt's pace matches the
