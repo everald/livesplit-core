@@ -9,6 +9,7 @@ pub mod current_pace;
 pub mod delta;
 pub mod detailed_timer;
 pub mod graph;
+pub mod pb_chance;
 pub mod possible_time_save;
 pub mod previous_segment;
 pub mod separator;
@@ -48,3 +49,17 @@ const DEFAULT_INFO_TEXT_GRADIENT: Gradient = Gradient::Vertical(
         },
     },
 );
+
+pub use self::{
+    blank_space::Component as BlankSpaceComponent,
+    current_comparison::Component as CurrentComparisonComponent,
+    current_pace::Component as CurrentPaceComponent, delta::Component as DeltaComponent,
+    detailed_timer::Component as DetailedTimerComponent, graph::Component as GraphComponent,
+    pb_chance::Component as PbChanceComponent,
+    possible_time_save::Component as PossibleTimeSaveComponent,
+    previous_segment::Component as PreviousSegmentComponent,
+    separator::Component as SeparatorComponent, splits::Component as SplitsComponent,
+    sum_of_best::Component as SumOfBestComponent, text::Component as TextComponent,
+    timer::Component as TimerComponent, title::Component as TitleComponent,
+    total_playtime::Component as TotalPlaytimeComponent,
+};

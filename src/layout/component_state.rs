@@ -1,5 +1,5 @@
 use component::{
-    blank_space, current_comparison, current_pace, delta, detailed_timer, graph,
+    blank_space, current_comparison, current_pace, delta, detailed_timer, graph, pb_chance,
     possible_time_save, previous_segment, separator, splits, sum_of_best, text, timer, title,
     total_playtime,
 };
@@ -19,6 +19,7 @@ pub enum ComponentState {
     DetailedTimer(Box<detailed_timer::State>),
     /// The state object for the Graph Component.
     Graph(graph::State),
+    PbChance(pb_chance::State),
     /// The state object for the Possible Time Save Component.
     PossibleTimeSave(possible_time_save::State),
     /// The state object for the Previous Segment Component.
