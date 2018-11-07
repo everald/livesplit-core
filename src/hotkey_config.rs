@@ -26,7 +26,7 @@ impl Default for HotkeyConfig {
     fn default() -> Self {
         use hotkey::KeyCode::*;
         Self {
-            split: NumPad1,
+            split: Space,
             reset: NumPad3,
             undo: NumPad8,
             skip: NumPad2,
@@ -42,7 +42,7 @@ impl Default for HotkeyConfig {
     fn default() -> Self {
         use hotkey::KeyCode::*;
         Self {
-            split: Numpad1,
+            split: Space,
             reset: Numpad3,
             undo: Numpad8,
             skip: Numpad2,
